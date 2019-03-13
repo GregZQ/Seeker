@@ -14,7 +14,8 @@ public class UrlManager {
     private Set<String> urlSet = new HashSet<String>();
     //处理完成的url
     private Set<String> handleUrl = new HashSet<String>();
-
+    //线程数
+    private volatile int count;
     /**
      * 添加url
      * @param url
@@ -25,6 +26,7 @@ public class UrlManager {
             //判断当前url是否已经被处理
             if (!handleUrl.contains(url)){
                 urlSet.add(url);
+                count++;
             }
         }
     }
@@ -41,9 +43,14 @@ public class UrlManager {
                 String value = iterator.next();
                 handleUrl.add(value);
                 iterator.remove();
+                count--;
                 return value;
             }
             return null;
         }
+    }
+
+    public int getCount() {
+        return count;
     }
 }

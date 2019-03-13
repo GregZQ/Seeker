@@ -8,4 +8,8 @@ package com.seeker.properties;
 public class SystemProperties {
 
     public static Integer THREAD_COUNT = Runtime.getRuntime().availableProcessors() * 2;
+
+    public static Integer connectTimeout = 5000;
+
+    public static Integer connectionRequestTimeout = 5000;
 }
