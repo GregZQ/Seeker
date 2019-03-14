@@ -14,7 +14,11 @@ public enum  RequestMethod {
     }
     private Integer value;
 
-    public Integer value(){
+    public int value(){
         return this.value;
+    }
+
+    public boolean match(int value){
+        return this.value == value?true:false;
     }
 }
