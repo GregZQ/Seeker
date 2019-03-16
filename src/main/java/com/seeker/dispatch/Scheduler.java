@@ -3,6 +3,7 @@ package com.seeker.dispatch;
 import com.seeker.analyze.Parser;
 import com.seeker.download.Downloader;
 import com.seeker.network.Request;
+import com.seeker.network.Response;
 import com.seeker.pipline.Pipline;
 import com.seeker.urls.UrlManager;
 import org.apache.commons.lang3.StringUtils;
@@ -34,14 +35,24 @@ public class Scheduler implements Runnable {
 
     public void run() {
         //在url
-        String url;
-        while (this.urlManager.getCount()!=0){
-            url = this.urlManager.getUrl();
-            if (StringUtils.isEmpty(url)){
-                break;
+        try {
+            String url;
+            while (this.urlManager.getCount() != 0) {
+                url = this.urlManager.getUrl();
+                if (StringUtils.isEmpty(url)) {
+                    break;
+                }
+                //设置访问url
+                request.setUserAgent(url);
+                //下载相应页面
+                Response response = downloader.handle(request);
+                //进行页面解析
+                Object obj = parser.parse(response);
+                //将解析页面保存到执行位置
+                pipline.save(obj);
             }
-            request.setUserAgent(url);
-            downloader.handle(request);
+        }catch (Exception e){
+            System.out.println(e.getCause());
         }
     }
 
