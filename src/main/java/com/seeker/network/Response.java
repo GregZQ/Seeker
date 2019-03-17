@@ -29,15 +29,15 @@ public class Response {
        if (Objects.isNull(bodyString)){
            StringBuilder html = new StringBuilder();
            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(bodyStream));
-            String tmp;
+            String tmp = null;
            try {
-               while ((tmp = bufferedReader.readLine())!=null){
+               while(Objects.nonNull(tmp = bufferedReader.readLine())){
                    html.append(tmp).append("\n");
                }
            } catch (IOException e) {
                e.printStackTrace();
            }
-           this.bodyString = bodyString;
+           this.bodyString = html.toString();
        }
        return bodyString;
     }
