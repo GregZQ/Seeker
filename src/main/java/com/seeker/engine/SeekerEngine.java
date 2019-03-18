@@ -55,13 +55,17 @@ public class SeekerEngine {
         //初始化
         init();
 
-        while (true) {
-            for(int i = 0;i<threadCount;i++){
+        for(int i = 0;i<threadCount;i++){
                 threadPoolExecutor.execute(
                         new Scheduler(downloader,pipline,parser,urlManager,request)
                 );
-            }
         }
+        //主线程关闭线程池
+        while (this.urlManager.getCount()!=0){
+            continue;
+        }
+        //url已经不存在,关闭线程池
+        threadPoolExecutor.shutdown();
     }
 
     private void init() throws Exception{

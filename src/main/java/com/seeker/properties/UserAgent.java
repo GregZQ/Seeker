@@ -7,7 +7,7 @@ package com.seeker.properties;
  */
 public enum  UserAgent {
 
-    GOOGLE("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36");
+    GOOGLE("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11");
     UserAgent(String value){
         this.value=value;
     }

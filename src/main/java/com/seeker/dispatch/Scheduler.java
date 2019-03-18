@@ -7,6 +7,7 @@ import com.seeker.network.Response;
 import com.seeker.pipline.Pipline;
 import com.seeker.urls.UrlManager;
 import org.apache.commons.lang3.StringUtils;
+import us.codecraft.xsoup.XElements;
 
 /**
  * @author GregZQ
@@ -43,13 +44,13 @@ public class Scheduler implements Runnable {
                     break;
                 }
                 //设置访问url
-                request.setUserAgent(url);
+                request.setUrl(url);
                 //下载相应页面
                 Response response = downloader.handle(request);
                 //进行页面解析
-                Object obj = parser.parse(response);
+                XElements xElements = parser.parse(response);
                 //将解析页面保存到执行位置
-                pipline.save(obj);
+                pipline.save(xElements);
             }
         }catch (Exception e){
             System.out.println(e.getCause());

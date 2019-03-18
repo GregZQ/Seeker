@@ -14,11 +14,10 @@ import java.util.Map;
  */
 public class Request {
     private String url;//处理Url
-    private String userAgent;//处理标识
     private Integer method;//请求方法
     private Integer connectTimeout;//连接超时时间
     private Integer connectionRequestTimeout;//请求超时时间
-    private Map<String,String>  head = new HashMap<String, String>();//请求头
+    private Map<String,String>  head = new HashMap<>();//请求头
 
     private Request(String url){
         this.url = url;
@@ -53,7 +52,7 @@ public class Request {
         this.method = value;
     }
     public void setUserAgent(String userAgent){
-        this.userAgent = userAgent;
+        this.addHeader("User-Agent",userAgent);
     }
     public void  setHead(Map<String,String>map){
         this.head = map;
@@ -80,6 +79,6 @@ public class Request {
     }
 
     public String getUserAgent() {
-        return userAgent;
+        return this.head.get("User-Agent");
     }
 }
